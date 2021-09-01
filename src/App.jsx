@@ -68,11 +68,11 @@ class App extends Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, { contacts: prevContacts }) {
     /*Добавление объекта с массивом контактов в localStorage*/
     const { contacts } = this.state;
 
-    if (prevState.contacts.length !== contacts.length) {
+    if (prevContacts.length !== contacts.length) {
       const data = JSON.stringify({ contacts: contacts });
       localStorage.setItem('phonebook', data);
     }
