@@ -6,12 +6,7 @@ import Container from './App.styled';
 
 class App extends Component {
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contacts: [],
     filter: '',
   };
 
@@ -59,7 +54,26 @@ class App extends Component {
     this.setState({ [name]: e.target.value.trim() });
   }
 
-  /*метод для формирования разметки*/
+  componentDidMount() {
+    /*получение объекта с массивом контактов из localStorage в state*/
+    let contacts;
+    try {
+      contacts = JSON.parse(localStorage.getItem('phonebook'));
+    } catch (error) {
+      console.log(error);
+    }
+
+    if (contacts) {
+      this.setState(contacts);
+    }
+  }
+
+  componentDidUpdate() {
+    /*Добавление объекта с массивом контактов в localStorage*/
+    const data = JSON.stringify({ contacts: this.state.contacts });
+    localStorage.setItem('phonebook', data);
+  }
+
   render() {
     const {
       state: { filter },
