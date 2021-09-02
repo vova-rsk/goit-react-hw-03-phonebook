@@ -9,14 +9,12 @@ export default class ContactForm extends Component {
     number: '',
   };
 
-  /*метод для обработки сабмита формы*/
+  /*method for processing a form submission*/
   handleSubmit = e => {
     e.preventDefault();
 
-    const {
-      state: { name, number },
-      props: { availabilityСheck, contactAdding },
-    } = this;
+    const { name, number } = this.state;
+    const { availabilityСheck, contactAdding } = this.props;
 
     if (availabilityСheck(name) || !name || !number) {
       return;
@@ -26,16 +24,13 @@ export default class ContactForm extends Component {
     this.setState({ name: '', number: '' });
   };
 
-  /*метод для формирования разметки*/
+  /*method for generating markup*/
   render() {
-    const {
-      state: { name, number },
-      handleSubmit,
-      props: { handleChange },
-    } = this;
+    const { name, number } = this.state;
+    const { handleChange } = this.props;
 
     return (
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={this.handleSubmit}>
         <label>
           Name
           <input
