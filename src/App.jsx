@@ -80,6 +80,7 @@ class App extends Component {
 
   render() {
     const { filter } = this.state;
+    const filteredContacts = this.contactsFiltering(filter);
 
     return (
       <Container>
@@ -93,7 +94,7 @@ class App extends Component {
         <h2>Contacts</h2>
         <Filter filter={filter} handleChange={this.handleChange.bind(this)} />
         <ContactList
-          contacts={this.contactsFiltering(filter)}
+          contacts={filteredContacts}
           contactRemoving={this.contactRemoving}
         />
       </Container>
